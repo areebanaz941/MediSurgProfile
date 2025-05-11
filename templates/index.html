@@ -660,7 +660,17 @@
     crossorigin=""></script>
     <!-- Leaflet MarkerCluster JS -->
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script>
+        console.log('Document ready - checking map requirements');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            console.log('Map element exists:', !!document.getElementById('hospital-map'));
+            console.log('Leaflet library loaded:', typeof L !== 'undefined');
+        });
+    </script>
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Map JS -->
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 </body>
 </html>
