@@ -8,6 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- AOS CSS for animations -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
@@ -18,6 +24,7 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#home">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Medi Surg Logo" height="40" class="d-inline-block align-text-top me-2">
                 <span class="brand-text">Medi Surg International</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -177,7 +184,7 @@
                 <p>Tracing our journey of growth and excellence since 2017</p>
             </div>
             <div class="timeline">
-                <div class="timeline-item">
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="1000">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>2017-2018</h3>
@@ -185,7 +192,7 @@
                         <p>Successfully founded and established Medi Surg International, laying the foundation for our journey into the surgical instrument distribution industry.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>2019-2020</h3>
@@ -193,7 +200,7 @@
                         <p>Expanded our product line and introduced innovative solutions to meet evolving healthcare needs.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="400">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>2021-2022</h3>
@@ -201,7 +208,7 @@
                         <p>Consolidated our position in the market and formed strategic partnerships to enhance our service delivery.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="600">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>2023-Present</h3>
