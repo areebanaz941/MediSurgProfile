@@ -91,12 +91,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 maxZoom: 18
             }).addTo(hospitalMap);
             
-            // Create custom icon for map markers with company logo
+            // Create custom icon for map markers with company logo - using a red marker for simplicity
             const hospitalIcon = L.icon({
-                iconUrl: '/static/img/logo.png',
-                iconSize: [30, 30],
-                iconAnchor: [15, 30],
-                popupAnchor: [0, -30]
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
             });
             
             // Define hospital locations
@@ -156,10 +158,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add company office marker
             const officeIcon = L.icon({
-                iconUrl: '/static/img/logo.png',
-                iconSize: [40, 40],
-                iconAnchor: [20, 40],
-                popupAnchor: [0, -40]
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
             });
             
             const officeMarker = L.marker([33.6565, 73.0181], {icon: officeIcon}).addTo(hospitalMap);
