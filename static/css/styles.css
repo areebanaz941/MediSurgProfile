@@ -415,6 +415,23 @@ a:hover {
     border-bottom: none;
 }
 
+.btn-buy-now {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-buy-now:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Team Section */
 .team-card {
     background-color: white;
