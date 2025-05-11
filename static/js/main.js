@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
         if (document.getElementById('hospital-map') && typeof L !== 'undefined') {
             // Create map centered on Islamabad, Pakistan
-            const hospitalMap = L.map('hospital-map').setView([33.6844, 73.0479], 10);
+            const hospitalMap = L.map('hospital-map').setView([33.6844, 73.0479], 8);
             
             // Add OSM tile layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 maxZoom: 18
             }).addTo(hospitalMap);
             
-            // Create custom icon for map markers with company logo - using a red marker for simplicity
+            // Create custom icon for map markers with company logo
             const hospitalIcon = L.icon({
                 iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -101,60 +101,211 @@ document.addEventListener('DOMContentLoaded', function() {
                 shadowSize: [41, 41]
             });
             
-            // Define hospital locations
-            const hospitals = [
-                {
-                    name: "Shifa International Hospital",
-                    location: [33.6800, 73.0802],
-                    address: "Sector H-8/4, Islamabad",
-                    type: "Major Medical Center"
-                },
-                {
-                    name: "Maroof International Hospital",
-                    location: [33.6932, 73.0511],
-                    address: "F-10 Markaz, Islamabad",
-                    type: "Major Medical Center"
-                },
-                {
-                    name: "PIMS Hospital",
-                    location: [33.7016, 73.0522],
-                    address: "G-8/3, Islamabad",
-                    type: "Government Hospital"
-                },
-                {
-                    name: "Holy Family Hospital",
-                    location: [33.6474, 73.0645],
-                    address: "Satellite Town, Rawalpindi",
-                    type: "Government Hospital"
-                },
-                {
-                    name: "Benazir Bhutto Hospital",
-                    location: [33.6339, 73.0691],
-                    address: "Murree Road, Rawalpindi",
-                    type: "Government Hospital"
-                },
-                {
-                    name: "Ayub Medical Complex",
-                    location: [34.1688, 73.2215],
-                    address: "Mandian, Abbottabad",
-                    type: "Regional Hospital"
-                }
-            ];
+            // Define hospital locations grouped by region
+            const hospitals = {
+                islamabad: [
+                    {
+                        name: "Shifa International Hospital",
+                        location: [33.6800, 73.0802],
+                        address: "Sector H-8/4, Islamabad",
+                        type: "Major Medical Center"
+                    },
+                    {
+                        name: "Maroof International Hospital",
+                        location: [33.6932, 73.0511],
+                        address: "F-10 Markaz, Islamabad",
+                        type: "Major Medical Center"
+                    },
+                    {
+                        name: "Islamic International Dental Hospital",
+                        location: [33.7035, 73.0408],
+                        address: "G-8, Islamabad",
+                        type: "Specialized Hospital"
+                    },
+                    {
+                        name: "Heart International Hospital",
+                        location: [33.6905, 73.0300],
+                        address: "F-8, Islamabad",
+                        type: "Specialized Hospital"
+                    },
+                    {
+                        name: "Ali Medical Centre",
+                        location: [33.7112, 73.0549],
+                        address: "G-8/4, Islamabad",
+                        type: "Medical Center"
+                    },
+                    {
+                        name: "PIMS Hospital",
+                        location: [33.7016, 73.0522],
+                        address: "G-8/3, Islamabad",
+                        type: "Government Hospital"
+                    },
+                    {
+                        name: "Dr. Akbar Khan Niazi Teaching Hospital",
+                        location: [33.7496, 73.1760],
+                        address: "Bara Kahu, Islamabad",
+                        type: "Teaching Hospital"
+                    },
+                    {
+                        name: "IDC Islamabad",
+                        location: [33.6939, 73.0285],
+                        address: "F-8 Markaz, Islamabad",
+                        type: "Diagnostic Center"
+                    }
+                ],
+                rawalpindi: [
+                    {
+                        name: "Behria International Hospital",
+                        location: [33.5651, 73.0888],
+                        address: "Bahria Town, Rawalpindi",
+                        type: "Major Medical Center"
+                    },
+                    {
+                        name: "Safari Hospital",
+                        location: [33.6176, 73.0601],
+                        address: "Saddar, Rawalpindi",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Maryum International Hospital",
+                        location: [33.6048, 73.0677],
+                        address: "Satellite Town, Rawalpindi",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Kulsoom International Hospital",
+                        location: [33.6242, 73.0711],
+                        address: "Peshawar Road, Rawalpindi",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Tehmar Diagnosis Centre",
+                        location: [33.6014, 73.0499],
+                        address: "Commercial Market, Rawalpindi",
+                        type: "Diagnostic Center"
+                    },
+                    {
+                        name: "Razi Hospital PWD",
+                        location: [33.6299, 73.0778],
+                        address: "PWD, Rawalpindi",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Benazir Bhutto Hospital",
+                        location: [33.6339, 73.0691],
+                        address: "Murree Road, Rawalpindi",
+                        type: "Government Hospital"
+                    },
+                    {
+                        name: "Holy Family Hospital",
+                        location: [33.6474, 73.0645],
+                        address: "Satellite Town, Rawalpindi",
+                        type: "Teaching Hospital"
+                    },
+                    {
+                        name: "RIC",
+                        location: [33.6128, 73.0781],
+                        address: "Murree Road, Rawalpindi",
+                        type: "Specialized Center"
+                    }
+                ],
+                abbottabad: [
+                    {
+                        name: "Mahida Hospital",
+                        location: [34.1672, 73.2252],
+                        address: "Abbottabad",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Gillani Hospital",
+                        location: [34.1691, 73.2211],
+                        address: "Abbottabad",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Green Valley Hospital",
+                        location: [34.1713, 73.2196],
+                        address: "Abbottabad",
+                        type: "Private Hospital"
+                    },
+                    {
+                        name: "Jinnah International Hospital",
+                        location: [34.1702, 73.2230],
+                        address: "Abbottabad",
+                        type: "Private Hospital"
+                    }
+                ],
+                lahore: [
+                    {
+                        name: "Behria International Hospital Lahore",
+                        location: [31.4730, 74.4107],
+                        address: "Bahria Town, Lahore",
+                        type: "Major Medical Center"
+                    }
+                ]
+            };
             
-            // Add markers for each hospital
-            hospitals.forEach(hospital => {
-                const marker = L.marker(hospital.location, {icon: hospitalIcon}).addTo(hospitalMap);
+            // Create marker cluster groups for each region
+            const markerGroups = {
+                islamabad: L.markerClusterGroup({
+                    iconCreateFunction: function(cluster) {
+                        return L.divIcon({ 
+                            html: `<div class="cluster-icon cluster-islamabad">${cluster.getChildCount()}</div>`,
+                            className: 'custom-cluster-icon',
+                            iconSize: L.point(40, 40)
+                        });
+                    }
+                }),
+                rawalpindi: L.markerClusterGroup({
+                    iconCreateFunction: function(cluster) {
+                        return L.divIcon({ 
+                            html: `<div class="cluster-icon cluster-rawalpindi">${cluster.getChildCount()}</div>`,
+                            className: 'custom-cluster-icon',
+                            iconSize: L.point(40, 40)
+                        });
+                    }
+                }),
+                abbottabad: L.markerClusterGroup({
+                    iconCreateFunction: function(cluster) {
+                        return L.divIcon({ 
+                            html: `<div class="cluster-icon cluster-abbottabad">${cluster.getChildCount()}</div>`,
+                            className: 'custom-cluster-icon',
+                            iconSize: L.point(40, 40)
+                        });
+                    }
+                }),
+                lahore: L.markerClusterGroup({
+                    iconCreateFunction: function(cluster) {
+                        return L.divIcon({ 
+                            html: `<div class="cluster-icon cluster-lahore">${cluster.getChildCount()}</div>`,
+                            className: 'custom-cluster-icon',
+                            iconSize: L.point(40, 40)
+                        });
+                    }
+                })
+            };
+            
+            // Add markers to clusters by region
+            for (const region in hospitals) {
+                hospitals[region].forEach(hospital => {
+                    const marker = L.marker(hospital.location, {icon: hospitalIcon});
+                    
+                    const popupContent = `
+                        <div class="map-marker-popup">
+                            <h4>${hospital.name}</h4>
+                            <p><strong>Type:</strong> ${hospital.type}</p>
+                            <p><strong>Address:</strong> ${hospital.address}</p>
+                            <p><strong>Region:</strong> ${region.charAt(0).toUpperCase() + region.slice(1)}</p>
+                        </div>
+                    `;
+                    
+                    marker.bindPopup(popupContent);
+                    markerGroups[region].addLayer(marker);
+                });
                 
-                const popupContent = `
-                    <div class="map-marker-popup">
-                        <h4>${hospital.name}</h4>
-                        <p><strong>Type:</strong> ${hospital.type}</p>
-                        <p><strong>Address:</strong> ${hospital.address}</p>
-                    </div>
-                `;
-                
-                marker.bindPopup(popupContent);
-            });
+                // Add the marker group to the map
+                hospitalMap.addLayer(markerGroups[region]);
+            }
             
             // Add company office marker
             const officeIcon = L.icon({
@@ -176,20 +327,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `);
             
-            // Draw connections from office to hospitals
-            hospitals.forEach(hospital => {
+            // Draw connections from office to regional centers
+            const regionalCenters = {
+                islamabad: [33.6844, 73.0479],
+                rawalpindi: [33.6100, 73.0600],
+                abbottabad: [34.1700, 73.2200],
+                lahore: [31.4730, 74.4107]
+            };
+            
+            for (const region in regionalCenters) {
                 const latlngs = [
                     [33.6565, 73.0181], // Office location
-                    hospital.location
+                    regionalCenters[region]
                 ];
                 
                 const polyline = L.polyline(latlngs, {
                     color: '#b23c3c',
-                    weight: 2,
+                    weight: 3,
                     opacity: 0.7,
                     dashArray: '5, 10'
                 }).addTo(hospitalMap);
-            });
+            }
         } else {
             console.log('Map container not found or Leaflet not loaded');
             
