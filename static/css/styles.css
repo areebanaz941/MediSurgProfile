@@ -816,36 +816,39 @@ a:hover {
 }
 
 /* Custom Cluster Icons */
-.custom-cluster-icon {
+.marker-cluster {
+    background-color: transparent;
     background: transparent;
 }
 
-.cluster-icon {
+.custom-cluster-icon {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.custom-cluster-icon span {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: #b23c3c;
     color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
+    font-size: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.cluster-islamabad {
-    background-color: rgba(178, 60, 60, 0.8); /* Primary color with transparency */
-}
-
-.cluster-rawalpindi {
-    background-color: rgba(139, 34, 34, 0.8); /* Secondary color with transparency */
-}
-
-.cluster-abbottabad {
-    background-color: rgba(230, 62, 34, 0.8); /* Accent color with transparency */
-}
-
-.cluster-lahore {
-    background-color: rgba(70, 70, 150, 0.8); /* Different color for Lahore */
 }
 
 /* Back to Top Button */

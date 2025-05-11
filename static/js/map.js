@@ -71,12 +71,10 @@ function initializeMap() {
         
         // Create a marker for headquarters
         const headquartersIcon = L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
+            iconUrl: '/static/img/logo.png',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, -15]
         });
         
         const headquartersMarker = L.marker(officeLocation, { icon: headquartersIcon }).addTo(map);
@@ -98,19 +96,39 @@ function initializeMap() {
             lahore: 'blue'
         };
         
-        // Add all hospital markers
+        // Create marker clusters for each region
+        const clusterGroups = {};
+        
+        // Define custom cluster icon
+        const createClusterIcon = function(cluster) {
+            return L.divIcon({
+                html: `<div class="custom-cluster-icon" style="background-image: url('/static/img/logo.png');">
+                       <span>${cluster.getChildCount()}</span>
+                       </div>`,
+                className: 'marker-cluster',
+                iconSize: L.point(40, 40)
+            });
+        };
+        
+        // Initialize marker cluster group for each region
+        Object.keys(hospitalData).forEach(region => {
+            clusterGroups[region] = L.markerClusterGroup({
+                maxClusterRadius: 40,
+                iconCreateFunction: createClusterIcon
+            });
+        });
+        
+        // Add all hospital markers to their respective cluster groups
         Object.keys(hospitalData).forEach(region => {
             hospitalData[region].forEach(hospital => {
                 const hospitalIcon = L.icon({
-                    iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${regionColors[region]}.png`,
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
+                    iconUrl: '/static/img/logo.png',
+                    iconSize: [25, 25],
+                    iconAnchor: [12, 12],
+                    popupAnchor: [0, -12]
                 });
                 
-                const marker = L.marker(hospital.location, { icon: hospitalIcon }).addTo(map);
+                const marker = L.marker(hospital.location, { icon: hospitalIcon });
                 marker.bindPopup(`
                     <div class="map-marker-popup">
                         <h4>${hospital.name}</h4>
@@ -119,14 +137,20 @@ function initializeMap() {
                     </div>
                 `);
                 
+                // Add marker to the cluster group
+                clusterGroups[region].addLayer(marker);
+                
                 // Draw line from headquarters to this hospital
                 L.polyline([officeLocation, hospital.location], {
                     color: '#b23c3c',
                     weight: 1,
-                    opacity: 0.6,
+                    opacity: 0.3,
                     dashArray: '5, 10'
                 }).addTo(map);
             });
+            
+            // Add the cluster group to the map
+            map.addLayer(clusterGroups[region]);
         });
         
         console.log('Map initialization complete');
