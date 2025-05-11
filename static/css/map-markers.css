@@ -1,0 +1,55 @@
+/* Custom Map Marker Styles */
+
+/* Create circular markers with pointer */
+.marker-icon {
+    background-color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: visible;
+}
+
+.marker-icon::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid white;
+}
+
+/* Custom icon container */
+.leaflet-marker-icon {
+    border-radius: 50%;
+}
+
+/* Customized popup styles */
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.3);
+}
+
+.leaflet-popup-tip {
+    box-shadow: 0 3px 14px rgba(0,0,0,0.3);
+}
+
+/* Cluster icons */
+.marker-cluster-small, 
+.marker-cluster-medium, 
+.marker-cluster-large {
+    background-color: transparent !important;
+}
+
+.marker-cluster-small div, 
+.marker-cluster-medium div, 
+.marker-cluster-large div {
+    background-color: rgba(178, 60, 60, 0.8) !important;
+    color: white !important;
+    font-weight: bold !important;
+}

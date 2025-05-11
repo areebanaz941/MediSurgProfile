@@ -70,11 +70,12 @@ function initializeMap() {
         const officeLocation = [33.6565, 73.0181];
         
         // Create a marker for headquarters
-        const headquartersIcon = L.icon({
-            iconUrl: '/static/img/logo.png',
+        const headquartersIcon = L.divIcon({
+            html: `<div class="marker-icon" style="width: 30px; height: 30px; background-image: url('/static/img/logo.png'); background-size: cover;"></div>`,
+            className: 'custom-marker headquarters-marker',
             iconSize: [30, 30],
-            iconAnchor: [15, 15],
-            popupAnchor: [0, -15]
+            iconAnchor: [15, 23], // Adjusted to account for the pointer
+            popupAnchor: [0, -25]
         });
         
         const headquartersMarker = L.marker(officeLocation, { icon: headquartersIcon }).addTo(map);
@@ -83,7 +84,7 @@ function initializeMap() {
                 <h4>Medi Surg International</h4>
                 <p><strong>Headquarters</strong></p>
                 <p>Office no 3, 1st floor, Ahmad plaza I-10 markaz, Islamabad.</p>
-                <p>+92-310-0085387</p>
+                <p>+92 310 0085387</p>
             </div>
         `);
         
@@ -121,11 +122,12 @@ function initializeMap() {
         // Add all hospital markers to their respective cluster groups
         Object.keys(hospitalData).forEach(region => {
             hospitalData[region].forEach(hospital => {
-                const hospitalIcon = L.icon({
-                    iconUrl: '/static/img/logo.png',
+                const hospitalIcon = L.divIcon({
+                    html: `<div class="marker-icon" style="width: 25px; height: 25px; background-image: url('/static/img/logo.png'); background-size: cover;"></div>`,
+                    className: 'custom-marker hospital-marker',
                     iconSize: [25, 25],
-                    iconAnchor: [12, 12],
-                    popupAnchor: [0, -12]
+                    iconAnchor: [12, 20], // Adjusted to account for the pointer
+                    popupAnchor: [0, -22]
                 });
                 
                 const marker = L.marker(hospital.location, { icon: hospitalIcon });
