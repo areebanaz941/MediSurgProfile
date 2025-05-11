@@ -367,6 +367,8 @@ a:hover {
     overflow: hidden;
     transition: var(--transition);
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
@@ -392,6 +394,7 @@ a:hover {
 
 .product-info {
     padding: 1.5rem;
+    flex-grow: 1;
 }
 
 .product-info h3 {
@@ -415,14 +418,23 @@ a:hover {
     border-bottom: none;
 }
 
+.product-action {
+    padding: 15px;
+    text-align: center;
+    margin-top: auto;
+}
+
 .btn-buy-now {
     display: block;
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     font-weight: 600;
     transition: all 0.3s ease;
     background-color: var(--primary-color);
     border-color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px;
 }
 
 .btn-buy-now:hover {
